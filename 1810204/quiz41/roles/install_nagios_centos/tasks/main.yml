@@ -82,9 +82,4 @@
       name: httpd
       state: restarted
 
-  - name: Start Nagios
-    service:
-      name: nagios
-      state: started
-
 
