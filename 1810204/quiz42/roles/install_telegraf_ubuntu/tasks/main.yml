@@ -1,0 +1,38 @@
+---
+# tasks file for roles/install_telegraf_ubuntu
+
+  - name: Installing dependencies
+    apt:
+      name:
+        - gnupg2
+        - software-properties-common
+      update_cache: yes
+
+  - name: Adding key
+    apt_key:
+      url: "https://repos.influxdata.com/influxdb.key"
+      state: present
+
+  - name: Adding the repository
+    apt_repository:
+      repo: "deb https://repos.influxdata.com/ubuntu bionic stable"
+      state: present
+      filename: telegraf
+
+  - name: Installing telegraf
+    apt:
+      name: telegraf
+      state: latest
+      update_cache: yes
+
+  - name: Starting telegraf
+    service:
+      name: telegraf
+      state: started
+      enabled: yes
+
+  - name: Stopping ufw
+    service:
+      name: ufw
+      state: stopped
+      enabled: no

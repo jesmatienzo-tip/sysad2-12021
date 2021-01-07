@@ -1,0 +1,31 @@
+---
+
+  - name: Install and configure Grafana - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_grafana_ubuntu
+
+  - name: Install and configure Grafana - Centos
+    hosts: centos
+    roles:
+      - install_grafana_centos
+
+  - name: Install and configure Telegraf - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_telegraf_ubuntu
+
+  - name: Install and configure Telegraf - Centos
+    hosts: centos
+    roles:
+      - install_telegraf_centos
+
+  - name: Install and configure Prometheus - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_prometheus_ubuntu
+
+  - name: Install and configure Prometheus - Centos
+    hosts: centos
+    roles:
+      - install_prometheus_centos
