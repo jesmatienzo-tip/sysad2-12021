@@ -1,0 +1,17 @@
+---
+
+  - name: Install and configure Elasticsearch - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_elasticsearch_ubuntu
+
+  - name: Install and configure Kibana - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_kibana_ubuntu
+
+  - name: Install and configure Logstash - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_logstash_ubuntu
+    
