@@ -1,0 +1,14 @@
+---
+# tasks file for roles/install_mariadb_ubuntu
+
+  - name: mariadb installation
+    apt:
+      name: mariadb-server-10.3
+      state: present
+      update_cache: yes
+
+  - name: Starting mariadb
+    service:
+      name: mariadb
+      state: started
+

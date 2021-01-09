@@ -1,0 +1,52 @@
+---
+# tasks file for roles/install_kibana_ubuntu
+
+  - name: Installing dependencies - java and nginx
+    apt:
+      name:
+        - openjdk-11-jdk
+        - nginx
+      state: latest
+      update_cache: yes
+
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started
+
+  - name: Adding kibana's apt key
+    apt_key:
+      url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+      state: present
+
+  - name: Adding kibana's repo
+    shell: echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+
+  - name: Installing Kibana
+    apt:
+      name: kibana
+      state: present
+      update_cache: yes
+
+  - name: Updating config file to allow outside access
+    lineinfile:
+      destfile: /etc/kibana/kibana.yml
+      regexp: 'server.host:'
+      line: 'server.host: 0.0.0.0'
+
+  - name: Defining the server port
+    lineinfile:
+      destfile: /etc/kibana/kibana.yml
+      regexp: 'server.port:'
+      line: 'server.port: 5601'
+
+  - name: Defining Elasticsearch URL
+    lineinfile:
+      destfile: /etc/kibana/kibana.yml
+      regexp: 'elasticsearch.hosts:'
+      line: 'elasticsearch.hosts: "https://localhost:9200"'
+
+  - name: Starting kibana
+    service:
+      name: kibana
+      state: started

@@ -1,0 +1,46 @@
+---
+  
+  - name: Install and configure ElasticSearch
+    hosts: elasticsearch
+    roles:
+      - install_elasticsearch_ubuntu
+
+  - name: Install and configure Kibana
+    hosts: kibana
+    roles:
+      - install_kibana_ubuntu
+
+  - name: Install and configure Logstash
+    hosts: logstash
+    roles:
+      - install_logstash_ubuntu
+
+  - name: Install and configure Nagios
+    hosts: nagios
+    roles:
+      - install_nagios_centos
+
+  - name: Install and configure Grafana
+    hosts: grafana
+    roles:
+      - install_grafana_ubuntu
+
+  - name: Install and configure Prometheus
+    hosts: prometheus
+    roles:
+      - install_prometheus_ubuntu
+
+  - name: Install and configure influxdb/telegraf
+    hosts: influxdb
+    roles:
+      - install_telegraf_ubuntu
+
+  - name: Install and configure apache2 + php
+    hosts: httpd
+    roles: 
+      - install_httpd_ubuntu
+
+  - name: Install and configure mariadb
+    hosts: mariadb
+    roles:
+      - install_mariadb_ubuntu

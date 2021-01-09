@@ -1,0 +1,27 @@
+---
+# tasks file for roles/install_httpd_ubuntu
+
+  - name: Apache2 Installation
+    apt:
+      name: apache2
+      state: latest
+      update_cache: yes
+
+  - name: Php Installation
+    apt:
+      name:
+        - php
+        - libapache2-mod-php
+        - php-mysql
+
+  - name: Starting Apache2 service
+    service:
+      name: apache2
+      state: started
+      enabled: yes
+
+  - name: Stop ufw
+    service:
+      name: ufw
+      state: stopped
+      enabled: no

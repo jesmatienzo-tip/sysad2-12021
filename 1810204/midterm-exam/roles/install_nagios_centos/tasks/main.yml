@@ -1,0 +1,85 @@
+---
+# tasks file for roles/install_nagios_centos
+
+  - name: Installing pre-requisite packages
+    yum:
+      name:
+        - gcc
+        - glibc
+        - glibc-common
+        - wget
+        - unzip
+        - httpd
+        - php
+        - gd
+        - gd-devel
+        - perl
+        - postfix
+      state: latest
+      update_cache: yes
+
+  - name: Downloading the Source
+    unarchive:
+      src: https://github.com/NagiosEnterprises/nagioscore/archive/nagios-4.4.5.tar.gz
+      dest: /tmp/
+      remote_src: yes
+    register: nagios_download
+
+  - name: Compiling the Source
+    shell: cd /tmp/nagioscore-nagios-4.4.5; sh /tmp/nagioscore-nagios-4.4.5/configure
+    when: nagios_download.changed
+
+  - name: Compile build all
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: all
+
+  - name: Creating Make Groups-Users
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install-groups-users
+
+  - name: Adding www-data user
+    user:
+      name: apache
+      group: nagios
+      append: yes
+
+  - name: Installing binaries
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install
+
+  - name: Installing Service / Daemon
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install-daemoninit
+
+  - name: Installing command mode
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install-commandmode
+
+  - name: Installing configuration files
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install-config
+
+  - name: Installing httpd config files
+    make:
+      chdir: /tmp/nagioscore-nagios-4.4.5/
+      target: install-webconf
+    register: install_webconf
+
+  - name: Stopping firewall
+    service:
+      name: firewalld
+      state: stopped
+      enabled: no
+
+  - name: Start Apache Web Server
+    service:
+      name: httpd
+      state: restarted
+
+
