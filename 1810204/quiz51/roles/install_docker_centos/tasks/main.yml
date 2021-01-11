@@ -1,0 +1,40 @@
+---
+# tasks file for roles/install_docker_centos
+
+  - name: Installing Docker's prerequisites
+    yum:
+      name:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - python3
+        - python3-pip
+      state: latest
+      update_cache: yes
+
+  - name: Getting docker's repo
+    get_url:
+      url: "https://download.docker.com/linux/centos/docker-ce.repo"
+      dest: /etc/yum.repos.d/docker-ce.repo
+      mode: '0644'
+
+  - name: Installing Docker
+    yum:
+      name: docker-ce
+      state: present
+  
+  - name: Installing docker.py
+    pip:
+      name: docker.py
+      state: latest
+
+  - name: Starting docker
+    service:
+      name: docker
+      state: started
+
+  - name: Stopping ufw
+    service:
+      name: firewalld
+      state: stopped
+      enabled: no

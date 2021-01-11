@@ -1,0 +1,21 @@
+---
+
+  - name: Docker Installation - Ubuntu
+    hosts: ubuntu
+    roles:
+      - install_docker_ubuntu
+
+  - name: ELK Installation and configuration using Docker - Ubuntu
+    hosts: ubuntu
+    roles:
+      - configure_elk_docker_ubuntu
+
+  - name: Docker Installation - Centos
+    hosts: centos
+    roles:
+      - install_docker_centos
+
+  - name: ELK Installation and configuration using Docker - Centos
+    hosts: centos
+    roles:
+      - configure_elk_docker_centos
