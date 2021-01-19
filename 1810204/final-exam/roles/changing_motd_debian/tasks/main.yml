@@ -1,0 +1,10 @@
+---
+# tasks file for roles/changing_motd_debian
+
+  - name: Changing the Message of the Day
+    copy:
+      content: "Ansible managed by {{ username }}"
+      dest: /etc/motd
+
+  - name: Disabling default motd
+    shell: "chmod -x /etc/update-motd.d/"

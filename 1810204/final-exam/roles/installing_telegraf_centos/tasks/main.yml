@@ -1,0 +1,38 @@
+---
+# tasks file for roles/installing_telegraf_centos
+
+  - name: Installing influxdb and repo
+    copy:
+      src: influxdb.repo
+      dest: /etc/yum.repos.d/influxdb.repo
+      mode: '0755'
+
+  - name: Installing the package
+    yum:
+      name: influxdb
+      state: latest
+      update_cache: yes
+
+  - name: Starting influxdb
+    service:
+      name: influxdb
+      state: started
+      enabled: yes
+
+  - name: Installing telegraf
+    yum:
+      name: telegraf
+      state: latest
+      update_cache: yes
+
+  - name: Starting telegraf
+    service:
+      name: telegraf
+      state: started
+      enabled: yes
+
+  - name: Stopping firewall
+    service:
+      name: firewalld
+      state: stopped
+      enabled: no

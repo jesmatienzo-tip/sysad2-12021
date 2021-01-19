@@ -1,0 +1,14 @@
+---
+# tasks file for roles/cloning_prelims_opensuse
+
+  - name: Installing git
+    zypper:
+      name: git
+      state: latest
+      update_cache: yes
+
+  - name: Cloning prelims
+    git:
+      repo: https://github.com/jesmatienzo-tip/sysad2-12021.git
+      dest: /home/matienzo-1810204/prelimexam-cloned
+      version: prelim-exam

@@ -1,0 +1,14 @@
+---
+# tasks file for roles/cloning_prelims_debian
+
+  - name: Installing git
+    apt:
+      name: git
+      state: latest
+      update_cache: yes
+
+  - name: Cloning repository
+    git:
+      repo: https://github.com/jesmatienzo-tip/sysad2-12021.git
+      dest: /home/matienzo-1810204/prelimexam-cloned
+      version: prelim-exam

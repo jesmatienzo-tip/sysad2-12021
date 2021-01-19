@@ -1,0 +1,14 @@
+---
+# tasks file for roles/changing_motd_centos
+
+  - name: Changing the Message of the Day
+    copy:
+      content: "Ansible managed by {{ username }}"
+      dest: /etc/motd
+
+  - name: Disabling default motd
+    file:
+      dest: "/etc/update-motd.d/"
+      mode: "u-x,g-x,o-x"
+      state: directory
+      recurse: yes

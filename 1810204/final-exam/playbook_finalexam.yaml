@@ -1,0 +1,150 @@
+---
+  
+  #Part 4.1 - Clonning using git
+  
+  - name: 41_Cloning prelims using git
+    hosts: git
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: cloning_prelims_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: cloning_prelims_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: cloning_prelims_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'
+
+
+  #Part 4.2 - Webserver
+  
+  - name: 42_Installing and configuring httpd
+    hosts: webserver
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: installing_httpd_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: installing_httpd_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: installing_httpd_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'      
+        
+
+  #Part 4.3 - Grafana
+  
+  - name: 43_Installing and configuring grafana
+    hosts: grafana
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: installing_grafana_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: installing_grafana_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: installing_grafana_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'
+
+
+  #Part 4.3 - Prometheus
+  
+  - name: 43_Installing and configuring prometheus
+    hosts: prometheus
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: installing_prometheus_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: installing_prometheus_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: installing_prometheus_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'
+
+
+  #Part 4.3 - Telegraf
+
+  - name: 43_Installing and configuring telegraf
+    hosts: telegraf
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: installing_telegraf_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: installing_telegraf_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: installing_telegraf_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'
+
+
+  #Part 4.4 - Changing motd
+  
+  - name: 44_Changing motd
+    hosts: motd
+    tasks:
+      - name: Including config.yaml
+        include_vars:
+          file: config.yaml
+
+      - name: Including roles on Debian
+        include_role:
+          name: changing_motd_debian
+        when: ansible_distribution == 'Debian'
+
+      - name: Including roles on CentOS
+        include_role:
+          name: changing_motd_centos
+        when: ansible_distribution == 'CentOS'
+
+      - name: Including roles on OpenSUSE
+        include_role:
+          name: changing_motd_opensuse
+        when: ansible_distribution == 'openSUSE Tumbleweed'
